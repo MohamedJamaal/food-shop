@@ -1,5 +1,5 @@
 import React from 'react';
-import 'style.css';
+import './style.css';
 import bannerImg from './banner.png';
 import Logo from '../../common/Logo';
 
