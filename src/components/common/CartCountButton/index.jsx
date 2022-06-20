@@ -1,7 +1,23 @@
 import React from 'react';
+// import { connect } from 'react-redux';
+// import { useHistory } from 'react-router';
+// import { createStructuredSelector } from 'reselect';
+// import { selectCartItemsCount } from '../../../redux/cart/cart.selector';
+import './style.css';
 
-const CartCountButton = () => {
-  return <div>CartCountButton</div>;
+const ButtonCartCount = ({ cartCount }) => {
+  // const history = useHistory();
+  return (
+    <div className="btnCartCount">
+      <div className="count">{cartCount >= 100 ? '99+' : cartCount}</div>
+      <i className="fas fa-shopping-cart"></i>
+    </div>
+  );
 };
 
-export default CartCountButton;
+// const mapStateToProps = createStructuredSelector({
+//   cartCount: selectCartItemsCount,
+// });
+
+// export default connect(mapStateToProps)(ButtonCartCount);
+export default ButtonCartCount;
