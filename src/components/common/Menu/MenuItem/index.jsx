@@ -1,38 +1,34 @@
 import React from 'react';
-// import { connect } from 'react-redux';
-// import { createStructuredSelector } from 'reselect';
-// import {
-//   cartAddItem,
-//   cartRemoveItem,
-// } from '../../../../redux/cart/cart.action';
-// import {
-//   selectCartItems,
-//   selectCartItemsCount,
-// } from '../../../../redux/cart/cart.selector';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { cartAddItem, cartRemoveItem } from '../../../../redux/cart/cartAction';
+import {
+  selectCartItems,
+  selectCartItemsCount,
+} from '../../../../redux/cart/cartSelector';
 
 import ButtonAddRemoveItem from '../../ButtonAddRemoveItem';
 import './style.css';
 
 const MenuItem = ({
-  // item,
-  // cartCount,
-  // cartList,
-  // cartAddItem,
-  // cartRemoveItem,
   item,
+  cartCount,
+  cartList,
+  cartAddItem,
+  cartRemoveItem,
 }) => {
   const { id, img, name, price, info } = item;
 
-  // const handleQuantity = () => {
-  //   let quantity = 0;
-  //   if (cartCount !== 0) {
-  //     const foundItemInCart = cartList.find((item) => item.id === id);
-  //     if (foundItemInCart) {
-  //       quantity = foundItemInCart.quantity;
-  //     }
-  //   }
-  //   return quantity;
-  // };
+  const handleQuantity = () => {
+    let quantity = 0;
+    if (cartCount !== 0) {
+      const foundItemInCart = cartList.find((item) => item.id === id);
+      if (foundItemInCart) {
+        quantity = foundItemInCart.quantity;
+      }
+    }
+    return quantity;
+  };
 
   return (
     <div className="item">
@@ -46,24 +42,24 @@ const MenuItem = ({
       <div className="item-foot_desc">
         <span className="foot_desc-price">${price}</span>
         <ButtonAddRemoveItem
-          quantity={0}
-          // handleRemoveItem={() => cartRemoveItem(item)}
-          // handleAddItem={() => cartAddItem(item)}
+          quantity={handleQuantity()}
+          handleRemoveItem={() => cartRemoveItem(item)}
+          handleAddItem={() => cartAddItem(item)}
         />
       </div>
     </div>
   );
 };
 
-// const mapStateToProps = createStructuredSelector({
-//   cartCount: selectCartItemsCount,
-//   cartList: selectCartItems,
-// });
+const mapStateToProps = createStructuredSelector({
+  cartCount: selectCartItemsCount,
+  cartList: selectCartItems,
+});
 
-// const mapDispatchToProps = (dispatch) => ({
-//   cartAddItem: (item) => dispatch(cartAddItem(item)),
-//   cartRemoveItem: (item) => dispatch(cartRemoveItem(item)),
-// });
+const mapDispatchToProps = (dispatch) => ({
+  cartAddItem: (item) => dispatch(cartAddItem(item)),
+  cartRemoveItem: (item) => dispatch(cartRemoveItem(item)),
+});
 
-// export default connect(mapStateToProps, mapDispatchToProps)(MenuItem);
-export default MenuItem;
+export default connect(mapStateToProps, mapDispatchToProps)(MenuItem);
+// export default MenuItem;
